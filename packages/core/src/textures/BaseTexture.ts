@@ -14,6 +14,13 @@ const defaultBufferOptions = {
     alphaMode: ALPHA_MODES.NPM,
 };
 
+type BaseTextureEventTypes<R extends Resource = Resource, RO = IAutoDetectOptions> = {
+    update: [BaseTexture<R, RO>];
+    loaded: [BaseTexture<R, RO>];
+    error: [BaseTexture<R, RO>, ErrorEvent];
+    dispose: [BaseTexture<R, RO>];
+};
+
 export type ImageSource = HTMLImageElement|HTMLCanvasElement|HTMLVideoElement|ImageBitmap;
 
 export interface IBaseTextureOptions<RO = any> {
@@ -32,7 +39,7 @@ export interface IBaseTextureOptions<RO = any> {
     pixiIdPrefix?: string;
 }
 
-export interface BaseTexture extends GlobalMixins.BaseTexture, EventEmitter {}
+export interface BaseTexture extends GlobalMixins.BaseTexture, EventEmitter<BaseTextureEventTypes> {}
 
 /**
  * A Texture stores the information that represents an image.
@@ -45,7 +52,8 @@ export interface BaseTexture extends GlobalMixins.BaseTexture, EventEmitter {}
  * @typeParam R - The BaseTexture's Resource type.
  * @typeParam RO - The options for constructing resource.
  */
-export class BaseTexture<R extends Resource = Resource, RO = IAutoDetectOptions> extends EventEmitter
+export class BaseTexture<R extends Resource = Resource, RO = IAutoDetectOptions>
+    extends EventEmitter<BaseTextureEventTypes<R, RO>>
 {
     public width: number;
     public height: number;

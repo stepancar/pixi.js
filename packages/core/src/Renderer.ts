@@ -69,7 +69,7 @@ export interface IRendererPlugin {
  * @memberof PIXI
  * @extends PIXI.AbstractRenderer
  */
-export class Renderer extends AbstractRenderer
+export class Renderer extends AbstractRenderer<'prerender' | 'postrender'>
 {
     public gl: IRenderingContext;
     public globalUniforms: UniformGroup;

@@ -59,7 +59,7 @@ export interface CrossPlatformCanvasRenderingContext2D extends CanvasRenderingCo
  * @memberof PIXI
  * @extends PIXI.AbstractRenderer
  */
-export class CanvasRenderer extends AbstractRenderer
+export class CanvasRenderer extends AbstractRenderer<'prerender' | 'postrender'>
 {
     public readonly rootContext: CrossPlatformCanvasRenderingContext2D;
     public context: CrossPlatformCanvasRenderingContext2D;

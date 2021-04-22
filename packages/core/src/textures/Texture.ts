@@ -14,9 +14,13 @@ import type { TextureMatrix } from './TextureMatrix';
 
 const DEFAULT_UVS = new TextureUvs();
 
+type TextureEventTypes<R extends Resource = Resource> = {
+    update: [Texture<R>]
+};
+
 export type TextureSource = string|BaseTexture|ImageSource;
 
-export interface Texture extends GlobalMixins.Texture, EventEmitter {}
+export interface Texture<R> extends GlobalMixins.Texture, EventEmitter<TextureEventTypes<R>> {}
 
 /**
  * A texture stores the information that represents an image or part of an image.
@@ -49,7 +53,7 @@ export interface Texture extends GlobalMixins.Texture, EventEmitter {}
  * @memberof PIXI
  * @typeParam R - The BaseTexture's Resource type.
  */
-export class Texture<R extends Resource = Resource> extends EventEmitter
+export class Texture<R extends Resource = Resource> extends EventEmitter<TextureEventTypes<R>>
 {
     public baseTexture: BaseTexture<R>;
     public orig: Rectangle;

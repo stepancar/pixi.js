@@ -53,7 +53,7 @@ export interface IRendererRenderOptions {
  * @extends PIXI.utils.EventEmitter
  * @memberof PIXI
  */
-export abstract class AbstractRenderer extends EventEmitter
+export abstract class AbstractRenderer<EventTypes extends string | symbol = string | symbol> extends EventEmitter<EventTypes | 'resize'>
 {
     public resolution: number;
     public clearBeforeRender?: boolean;

@@ -13,7 +13,15 @@ export interface IDestroyOptions {
     baseTexture?: boolean;
 }
 
-export interface DisplayObject extends Omit<GlobalMixins.DisplayObject, keyof EventEmitter>, EventEmitter {}
+type DisplayObjectEventTypes = {
+    destroyed: [];
+};
+
+type DefaultEventTypes = {
+    [key: string]: Array<any>;
+};
+
+export interface DisplayObject<EventTypes extends DefaultEventTypes = DefaultEventTypes> extends Omit<GlobalMixins.DisplayObject, keyof EventEmitter<EventTypes & DisplayObjectEventTypes>>, EventEmitter<DisplayObjectEventTypes> {}
 
 /**
  * The base class for all objects that are rendered on the screen.
@@ -203,7 +211,7 @@ export interface DisplayObject extends Omit<GlobalMixins.DisplayObject, keyof Ev
  * @extends PIXI.utils.EventEmitter
  * @memberof PIXI
  */
-export abstract class DisplayObject extends EventEmitter
+export abstract class DisplayObject<EventTypes extends DefaultEventTypes = DefaultEventTypes> extends EventEmitter<DisplayObjectEventTypes>
 {
     abstract sortDirty: boolean;
 
